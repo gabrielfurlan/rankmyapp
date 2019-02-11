@@ -1,28 +1,43 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route } from 'react-router-dom';
+
+import CheckIn from './components/CheckIn';
+import Alerts from './components/Alerts';
+
+import { AppContext } from './context';
+
+import './static/css/index.css';
 
 class App extends Component {
+  
+  state = {
+  	email: '',
+    alerts: []
+  }
+
+  changeAppContext = (data) => {
+  	const state = { ...this.state, ...data };
+  	this.setState(state);
+  }
+
   render() {
+  	const context = { 
+  		...this.state,
+  		changeAppContext: this.changeAppContext
+  	};
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+    	<AppContext.Provider value={context}>
+		  	<BrowserRouter>
+		    	<div className='app'>
+						<Route exact path='/' component={CheckIn} />
+						<Route path='/alerts' component={Alerts} />
+		    	</div>
+		  	</BrowserRouter>
+    	</AppContext.Provider>
     );
   }
+
 }
 
 export default App;
