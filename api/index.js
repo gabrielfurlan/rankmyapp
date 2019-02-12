@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
   next();
 });
 
@@ -33,6 +34,7 @@ app.get('/api/user/:email', UsersController.findOne);
 
 app.post('/api/alerts', AlertsController.create);
 app.get('/api/alert/:_id', AlertsController.findOne);
+app.delete('/api/alert/:_id', AlertsController.remove);
 
 // Initializing
 const port = 3001;

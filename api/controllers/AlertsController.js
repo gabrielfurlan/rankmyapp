@@ -51,15 +51,17 @@ export default class AlertsController {
 	}
 
 	/**
-	 *	delete - static function that delete a specific alert in 
+	 *	remove - static function that delete a specific alert in 
 	 *	the database
 	 *	
 	 *	@param {object} request 	it is express request object
 	 *	@param {object} response 	it is express reponse object
 	 */
-	static async delete(request, response) {
+	static async remove(request, response) {
+		const alert = await service.remove(request.params._id);
 		response.send({ 
-			status: 200
+			status: 200,
+			alert
 		});
 	}
 

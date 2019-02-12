@@ -1,5 +1,5 @@
 {
-  "name": "ebay-test",
+  "name": "rankmyapp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -17,7 +17,8 @@
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.3"
+    "react-scripts": "2.1.3",
+    "stylus": "^0.54.5"
   },
   "scripts": {
     "build-css": "stylus -c src/static/stylus/ --out src/static/css",

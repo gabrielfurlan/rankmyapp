@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=production
+    command: npm start
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+  api:
+    build: 
+      context: .
+      dockerfile: DockerfileAPI
+    image: node:10.15.1
+    environment:
+      - NODE_ENV=production
+      - REACT_APP_CLIENT_ID=${REACT_APP_CLIENT_ID}
+      - REACT_APP_CLIENT_SECREAT=${REACT_APP_CLIENT_SECREAT}
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+      - MONGO_URL=${MONGO_URL}
+    command: npm run api
+    ports:
+      - 3001:3001
+    volumes:
+      - .:/app

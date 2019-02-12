@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import moment from 'moment';
 
 import { AppContext } from '../context';
 
@@ -34,6 +35,14 @@ class Alerts extends Component {
 		this.setState(state);
 	}
 
+	handleDelete = async (_id, alerts, changeAppContext) => {
+		const index = alerts.findIndex(alert => alert._id === _id)
+		alerts.splice(index, 1);
+		
+		changeAppContext({ alerts });
+		await axios.delete(`http://localhost:3001/api/alert/${_id}`);
+	}
+
 	handleSubmit = async (e, user, alerts, changeAppContext) => {
 		e.preventDefault();
 
@@ -49,7 +58,7 @@ class Alerts extends Component {
 		this.setState({ ...this.state, ...defaultValues });
 	}
 
-	renderAlerts(alerts) {
+	renderAlerts(alerts, changeAppContext) {
 		if(!alerts.length) 
 				return <div className='not-alert'>Cadastre alertas e receba as melhores ofertas do produto.</div>
 		
@@ -59,7 +68,8 @@ class Alerts extends Component {
 					<h3 className='title'>{keywords}</h3>
 					<p className='id'>{_id}</p>
 				</header>
-				<span className='date'>{ created_at }</span>
+				<span className='date'>{ moment(created_at).format('MMMM Do YYYY, h:mm') }</span>
+				<img src='/delete-forever-outline.svg' onClick={() => this.handleDelete(_id, alerts, changeAppContext)} />
 			</div>
 		));
 	}
@@ -101,7 +111,7 @@ class Alerts extends Component {
 								</div>
 							</header>
 							<main className='main'>
-								{ this.renderAlerts(alerts)	}
+								{ this.renderAlerts(alerts, changeAppContext)	}
 							</main>
 						</section>
 					);

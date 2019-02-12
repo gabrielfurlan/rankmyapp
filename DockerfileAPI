@@ -1,0 +1,14 @@
+FROM node:10.15.1
+
+WORKDIR /usr/api
+
+COPY package*.json ./
+
+# RUN yarn build
+RUN npm install --production --silent
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]

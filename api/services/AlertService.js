@@ -35,12 +35,20 @@ export const findOne = (_id) => {
 };
 
 /**
- *
- *
+ *	remove - it is a function that delete a alert on mongo database
+ *	@param {string} _id it contains alert id
+ *	@returns {promise}	contains the deleted alert 
  */
-export const delele = ({ _id }) => { }
+export const remove = async (_id) => { 
+	const alert = await mongo.alerts.findOne({ _id })
+	const user = await mongo.users.findOne({ _id: alert.user });
 
+	const index = user.alerts.findIndex(id => id === _id)
+	user.alerts.splice(index, 1);
+	user.save();
 
+	return alert.remove();
+}
 
 /**
  *	throwAlerts - it is a function that send a alert by email 
