@@ -9,10 +9,14 @@ In the project directory, you can run:
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-and you can run the api:
-
 ### `npm run api` 
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
+Runs the api in the development mode.<br>
+
+## Run with docker
+
+### `docker-compose up --build`
+
+Runs the app in the production mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view the app in the browser.
 
